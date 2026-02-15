@@ -20,9 +20,9 @@ Bundler.require(*Rails.groups)
 
 if Rails.env.development? || Rails.env.test?
   Dotenv::Rails.files = [
-    Rails.root.join(".env"),
-    Rails.root.join("../.env"),
-  ].map(&:to_s)
+    File.expand_path("../.env", __dir__),
+    File.expand_path("../../.env", __dir__)
+  ].select { |path| File.exist?(path) }
 end
 
 module Api
