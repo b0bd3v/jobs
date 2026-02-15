@@ -12,4 +12,10 @@
 #  updated_at      :datetime         not null
 #
 class Job < ApplicationRecord
+  validates :title, presence: true, length: { minimum: 3 }
+  validates :description, presence: true, length: { minimum: 30 }
+  validates :status, presence: true
+
+  enum status: %i[draft published]
+  enum employment_type: %i[clt pj internship]
 end
