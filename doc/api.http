@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3000
+@email = test@example.com
+@password = password
+@authToken = {{login.response.headers.Authorization}}
+
+### Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "user": {
+    "email": "{{email}}",
+    "password": "{{password}}"
+  }
+}
+
+### Logout
+DELETE {{baseUrl}}/auth/logout
+Authorization: {{authToken}}
+Accept: application/json
+
+### Me
+# @name me
+GET {{baseUrl}}/auth/me
+Authorization: {{authToken}}
+Accept: application/json
