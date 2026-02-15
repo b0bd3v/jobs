@@ -18,6 +18,13 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+if Rails.env.development? || Rails.env.test?
+  Dotenv::Rails.files = [
+    Rails.root.join(".env"),
+    Rails.root.join("../.env"),
+  ].map(&:to_s)
+end
+
 module Api
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
