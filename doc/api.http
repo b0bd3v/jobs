@@ -25,3 +25,24 @@ Accept: application/json
 GET {{baseUrl}}/auth/me
 Authorization: {{authToken}}
 Accept: application/json
+
+### Create Job
+# @name createJob
+POST {{baseUrl}}/jobs
+Authorization: {{authToken}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "job": {
+    "title": "Titulo do trabalho",
+    "description": "Descrição do trabalho. Minimo de 30 caracteres.",
+    "employment_type": "clt",
+    "location": "Local do trabalho",
+    "status": "published"
+  }
+}
+
+### List Jobs
+# @name listJobs
+GET {{baseUrl}}/jobs
