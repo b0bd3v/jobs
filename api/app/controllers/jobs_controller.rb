@@ -1,9 +1,16 @@
 class JobsController < ApplicationController
 
   def index
-    @jobs = Job.order(created_at: :desc)
+    scope = Job.order(created_at: :desc)
+    scope = scope.where(status: :published) unless user_signed_in?
+
     
-    render json: @jobs
+    render json: scope
+  end
+
+  def show
+    @job = Job.find(params[:id])
+    render json: @job
   end
 
   def create

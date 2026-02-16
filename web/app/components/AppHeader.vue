@@ -17,6 +17,15 @@
 
       <v-btn to="/jobs" variant="text" class="text-none me-2"> Vagas </v-btn>
 
+      <v-btn
+        v-if="isLoggedIn"
+        to="/admin/jobs"
+        variant="text"
+        class="text-none me-2"
+      >
+        Admin
+      </v-btn>
+
       <template v-if="isLoggedIn">
         <v-menu min-width="200px" rounded>
           <template v-slot:activator="{ props }">
