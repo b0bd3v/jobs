@@ -26,9 +26,26 @@ GET {{baseUrl}}/auth/me
 Authorization: {{authToken}}
 Accept: application/json
 
+
+### List Jobs
+# @name listJobs
+GET {{baseUrl}}/jobs
+
+
+################################################################################
+### Admin
+################################################################################
+
+### List Jobs
+# @name listJobsAdmin
+GET {{baseUrl}}/admin/jobs
+Authorization: {{authToken}}
+Accept: application/json
+
+
 ### Create Job
-# @name createJob
-POST {{baseUrl}}/jobs
+# @name createJobAdmin
+POST {{baseUrl}}/admin/jobs
 Authorization: {{authToken}}
 Accept: application/json
 Content-Type: application/json
@@ -43,6 +60,31 @@ Content-Type: application/json
   }
 }
 
-### List Jobs
-# @name listJobs
-GET {{baseUrl}}/jobs
+### Update Job
+# @name updateJobAdmin
+PUT {{baseUrl}}/admin/jobs/{{createJobAdmin.response.body.id}}
+Authorization: {{authToken}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "job": {
+    "title": "Titulo do trabalho",
+    "description": "Descrição do trabalho. Minimo de 30 caracteres.",
+    "employment_type": "clt",
+    "location": "Local do trabalho",
+    "status": "published"
+  }
+}
+
+### Delete Job
+# @name deleteJobAdmin
+DELETE {{baseUrl}}/admin/jobs/{{createJobAdmin.response.body.id}}
+Authorization: {{authToken}}
+Accept: application/json
+
+### Show Job
+# @name showJobAdmin
+GET {{baseUrl}}/admin/jobs/{{createJobAdmin.response.body.id}}
+Authorization: {{authToken}}
+Accept: application/json
