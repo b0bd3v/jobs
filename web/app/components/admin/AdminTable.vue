@@ -133,4 +133,6 @@ watch(search, () => {
 });
 
 load();
+
+defineExpose({ refresh: load });
 </script>

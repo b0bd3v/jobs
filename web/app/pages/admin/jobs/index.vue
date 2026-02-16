@@ -1,5 +1,6 @@
 <template>
   <AdminTable
+    ref="table"
     title="Gerenciar Vagas"
     subtitle="Visualize e edite todas as oportunidades publicadas"
     :headers="headers"
@@ -22,6 +23,13 @@
         size="small"
         variant="text"
         color="primary"
+        icon="mdi-eye"
+        @click="showJob(item)"
+      />
+      <v-btn
+        size="small"
+        variant="text"
+        color="primary"
         icon="mdi-pencil"
         @click="editJob(item)"
       />
@@ -37,7 +45,14 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+const table = ref();
 const { apiFetch } = useAPI();
+const { user } = useAuth();
+
+if (!user.value) {
+  navigateTo('/login')
+}
 
 const headers = [
   { title: "ID", key: "id" },
@@ -70,7 +85,18 @@ function editJob(item: any) {
   // TODO: Implementar edição de vaga
 }
 
-function deleteJob(item: any) {
-  // TODO: Implementar deleção de vaga
+async function deleteJob(item: any) {
+  await apiFetch(`/admin/jobs/${item.id}`, {
+    method: "DELETE",
+    onResponse({ response }) {
+      if (response.status === 204) {
+        table.value.refresh();
+      }
+    },
+  });
+}
+
+function showJob(item: any) {
+  navigateTo(`/admin/jobs/${item.id}`);
 }
 </script>

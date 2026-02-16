@@ -24,5 +24,11 @@ module Admin
 
       render json: { data: scope, total: scope.total_count }
     end
+    def destroy
+      job = Job.find(params[:id])
+      job.destroy
+
+      render status: :no_content
+    end
   end
 end

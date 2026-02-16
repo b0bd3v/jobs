@@ -1,4 +1,3 @@
-<template>
-  <!-- TODO: Implementar página inicial -->
-  <div>Olá</div>
-</template>
+<script setup lang="ts">
+navigateTo('/jobs')
+</script>
