@@ -24,6 +24,12 @@ module Admin
 
       render json: { data: scope, total: scope.total_count }
     end
+
+    def show
+      job = Job.find(params[:id])
+      render json: job
+    end
+
     def destroy
       job = Job.find(params[:id])
       job.destroy
