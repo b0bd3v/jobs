@@ -4,11 +4,8 @@ module Admin
 
     def index
       scope = Job
-
-      if params[:q].present?
-        scope = scope.where("title LIKE ? OR description LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
-      end
-
+      scope = scope.search_by_term(params[:q]) if params[:q].present?
+        
       if params[:sort].present?
         column, direction = params[:sort].split(":")
         scope = scope.order(column => direction)

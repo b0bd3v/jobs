@@ -16,6 +16,10 @@ class Job < ApplicationRecord
   validates :description, presence: true, length: { minimum: 30 }
   validates :status, presence: true
 
+  scope :search_by_term, ->(term) {
+    where('LOWER(title) LIKE :term OR LOWER(description) LIKE :term OR LOWER(location) LIKE :term', term: "%#{term.downcase}%")
+  }
+
   enum status: %i[draft published]
   enum employment_type: %i[clt pj internship]
 end
