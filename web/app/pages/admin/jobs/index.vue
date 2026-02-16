@@ -7,7 +7,12 @@
     :fetcher="fetchJobs"
   >
     <template #toolbar-actions>
-      <v-btn color="primary" prepend-icon="mdi-plus" class="text-none">
+      <v-btn
+        to="/admin/jobs/new"
+        color="primary"
+        prepend-icon="mdi-plus"
+        class="text-none"
+      >
         Nova Vaga
       </v-btn>
     </template>
@@ -82,7 +87,7 @@ async function fetchJobs({ page, itemsPerPage, search, sortBy }: any) {
 }
 
 function editJob(item: any) {
-  // TODO: Implementar edição de vaga
+  navigateTo(`/admin/jobs/${item.id}/edit`);
 }
 
 async function deleteJob(item: any) {

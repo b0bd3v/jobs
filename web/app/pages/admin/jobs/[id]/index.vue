@@ -122,7 +122,9 @@ const deleteDialog = ref(false);
 const deleting = ref(false);
 
 function editJob() {
-  // TODO: Implementar edição de vaga
+  console.log('Editando vaga: ', job.id);
+  
+  navigateTo(`/admin/jobs/${job.id}/edit`);
 }
 
 async function deleteJob() {

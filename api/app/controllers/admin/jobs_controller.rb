@@ -1,5 +1,7 @@
 module Admin
   class JobsController < ApplicationController
+    before_action :authenticate_user!
+
     def index
       scope = Job
 
@@ -30,11 +32,35 @@ module Admin
       render json: job
     end
 
+    def create
+      job = Job.new(job_params)
+      if job.save
+        render json: job, status: :created
+      else
+        render json: job.errors, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      job = Job.find(params[:id])
+      if job.update(job_params)
+        render json: job
+      else
+        render json: job.errors, status: :unprocessable_entity
+      end
+    end
+
     def destroy
       job = Job.find(params[:id])
       job.destroy
 
       render status: :no_content
+    end
+
+    private
+
+    def job_params
+      params.require(:job).permit(:title, :description, :location, :employment_type, :status)
     end
   end
 end
