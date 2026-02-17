@@ -17,9 +17,12 @@ Antes de iniciar, você precisa configurar as variáveis de ambiente.
 
 ```bash
 cp .env.example .env
+
+# O container do Rails só lê .env dentro de api/, então copiamos o mesmo arquivo para lá
+cp .env api/.env
 ```
 
-Isso criará o arquivo `.env` na **raiz do repositório** com as configurações padrão. **Não é necessário alterar nada** para rodar localmente.
+Isso criará o arquivo `.env` na **raiz do repositório** e outro em `api/.env` (necessário porque o Docker monta apenas `./api:/rails`) com as configurações padrão. **Não é necessário alterar nada** para rodar localmente.
 
 **Inicie os containers:**
 
