@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   await auth.loadFromStorage();
 
   if (!auth.isLoggedIn) {
-    return navigateTo('/auth/login');
+    return navigateTo('/login');
   }
 
   if (!auth.user.value) {
@@ -11,7 +11,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       await auth.fetchMe();
     } catch {
       auth.logout();
-      return navigateTo('/auth/login');
+      return navigateTo('/login');
     }
   }
 });

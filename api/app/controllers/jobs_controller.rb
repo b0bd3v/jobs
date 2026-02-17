@@ -1,10 +1,10 @@
 class JobsController < ApplicationController
 
   def index
-    scope = Job.order(created_at: :desc)
-    scope = scope.where(status: :published) unless user_signed_in?
-    scope = scope.search_by_term(params[:search]) if params[:search].present?
-
+    scope = Job.published
+    scope = scope.search_by_term(params[:q]) if params[:q].present?
+    scope = scope.where(employment_type: params[:employment_type]) if params[:employment_type].present?
+    scope = scope.where(location: params[:location]) if params[:location].present?
     jobs = scope.page(params[:page]).per(params[:per_page] || 12)
 
     render json: {
@@ -22,11 +22,5 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
     render json: @job
-  end
-
-  private
-
-  def job_params
-    params.require(:job).permit(:title, :description, :employment_type, :location, :status)
   end
 end

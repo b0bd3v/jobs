@@ -15,9 +15,9 @@ jobs_data.each do |job|
   Job.create!(
     title: job['title'],
     description: job['description'],
-    status: job['status'],
     location: job['location'],
-    employment_type: job['employment_type']
+    employment_type: job['employment_type'],
+    publish_at: (DateTime.parse(job['publish_at']) if job['publish_at'].present?)
   )
 end
 

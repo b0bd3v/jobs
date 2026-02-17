@@ -23,6 +23,12 @@
       </div>
     </template>
 
+    <template v-slot:['item.publish_at']="{ item }">
+      <v-chip v-if="item.publish_at == null" size="small" color="gray">rascunho</v-chip>
+      <v-chip v-if="item.published == true" size="small" color="green">publicado em {{ formatDateShort(item.publish_at) }}</v-chip>
+      <v-chip v-if="item.scheduled == true" size="small" color="orange">agendado para {{ formatDateShort(item.publish_at) }}</v-chip>
+    </template>
+
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
         size="small"
@@ -54,6 +60,7 @@ import { ref } from "vue";
 const table = ref();
 const { apiFetch } = useAPI();
 const { user } = useAuth();
+const { formatDateShort } = useFormat();
 
 if (!user.value) {
   navigateTo('/login')
@@ -65,7 +72,7 @@ const headers = [
   { title: "Localização", key: "location" },
   { title: "Tipo", key: "employment_type" },
   { title: "Descrição", key: "description" },
-  { title: "Status", key: "status" },
+  { title: "Publicação", key: "publish_at" },
   { title: "Ações", key: "actions", sortable: false },
 ];
 

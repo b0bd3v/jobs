@@ -49,17 +49,15 @@
             ></v-textarea>
           </v-col>
 
-          <v-col cols="12">
-            <v-select
-              v-model="localForm.status"
-              label="Status"
-              :items="[
-                { title: 'Rascunho', value: 'draft' },
-                { title: 'Publicada', value: 'published' },
-              ]"
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="localForm.publish_at"
+              label="Data de Publicação"
+              type="datetime-local"
               variant="outlined"
-              required
-            ></v-select>
+              hint="Deixe em branco para salvar como rascunho"
+              persistent-hint
+            ></v-text-field>
           </v-col>
         </v-row>
       </v-card-text>
@@ -96,7 +94,7 @@ interface JobFormData {
   description: string;
   location: string;
   employment_type: string;
-  status: string;
+  publish_at: string | null;
 }
 
 interface Props {
@@ -111,7 +109,7 @@ const props = withDefaults(defineProps<Props>(), {
     description: "",
     location: "",
     employment_type: "clt",
-    status: "draft",
+    publish_at: null,
   }),
   loading: false,
   submitButtonText: "Salvar",
@@ -122,12 +120,16 @@ const emit = defineEmits<{
   (e: "cancel"): void;
 }>();
 
+const { getLocalISOString } = useFormat();
+
 const localForm = reactive<JobFormData>({
   title: props.initialData?.title || "",
   description: props.initialData?.description || "",
   location: props.initialData?.location || "",
   employment_type: props.initialData?.employment_type || "clt",
-  status: props.initialData?.status || "draft",
+  publish_at: props.initialData?.publish_at
+    ? getLocalISOString(props.initialData.publish_at)
+    : null,
 });
 
 watch(
@@ -138,7 +140,9 @@ watch(
       localForm.description = newData.description || "";
       localForm.location = newData.location || "";
       localForm.employment_type = newData.employment_type || "clt";
-      localForm.status = newData.status || "draft";
+      localForm.publish_at = newData.publish_at
+        ? getLocalISOString(newData.publish_at)
+        : null;
     }
   },
   { deep: true }

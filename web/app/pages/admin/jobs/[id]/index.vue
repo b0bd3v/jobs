@@ -51,14 +51,10 @@
             <div class="d-flex flex-column gap-4">
               <div>
                 <div class="text-caption text-medium-emphasis mb-1">Status</div>
-                <v-chip
-                  :color="job.status === 'published' ? 'success' : 'warning'"
-                  variant="flat"
-                  size="small"
-                  class="text-uppercase font-weight-bold"
-                >
-                  {{ job.status === "published" ? "Publicada" : "Rascunho" }}
-                </v-chip>
+                
+                <v-chip v-if="!job.publish_at" size="small" color="grey">rascunho</v-chip>
+                <v-chip v-else-if="job.published" size="small" color="green">publicado em {{ formatDateShort(job.publish_at) }}</v-chip>
+                <v-chip v-else-if="job.scheduled" size="small" color="orange">agendado para {{ formatDateShort(job.publish_at) }}</v-chip>
               </div>
 
               <div>
@@ -115,6 +111,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const { apiFetch } = useAPI();
+const { formatDateShort } = useFormat();
 
 const job = await apiFetch(`/admin/jobs/${route.params.id}`);
 

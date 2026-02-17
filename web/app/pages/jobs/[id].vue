@@ -5,7 +5,7 @@
         <v-btn
           variant="text"
           prepend-icon="mdi-arrow-left"
-          to="/jobs"
+          to="/"
           class="mb-6"
           color="grey-darken-1"
         >

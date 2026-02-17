@@ -14,8 +14,7 @@
       </v-toolbar-title>
 
       <v-spacer />
-
-      <v-btn to="/jobs" variant="text" class="text-none me-2"> Vagas </v-btn>
+      <v-btn to="/" variant="text" class="text-none me-2"> Home </v-btn>
 
       <v-btn
         v-if="isLoggedIn"

@@ -21,18 +21,21 @@ module Admin
         end
       end
 
-      render json: { data: scope, total: scope.total_count }
+      render json: { 
+        data: scope.as_json(methods: [:scheduled, :published]), 
+        total: scope.total_count 
+      }
     end
 
     def show
       job = Job.find(params[:id])
-      render json: job
+      render json: job.as_json(methods: [:scheduled, :published])
     end
 
     def create
       job = Job.new(job_params)
       if job.save
-        render json: job, status: :created
+        render json: job.as_json(methods: [:scheduled, :published]), status: :created
       else
         render json: job.errors, status: :unprocessable_entity
       end
@@ -41,7 +44,7 @@ module Admin
     def update
       job = Job.find(params[:id])
       if job.update(job_params)
-        render json: job
+        render json: job.as_json(methods: [:scheduled, :published])
       else
         render json: job.errors, status: :unprocessable_entity
       end
@@ -57,7 +60,7 @@ module Admin
     private
 
     def job_params
-      params.require(:job).permit(:title, :description, :location, :employment_type, :status)
+      params.require(:job).permit(:title, :description, :location, :employment_type, :publish_at)
     end
   end
 end
