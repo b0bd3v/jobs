@@ -7,7 +7,6 @@
 #  employment_type :integer
 #  location        :string
 #  publish_at      :datetime
-#  status          :integer
 #  title           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

@@ -3,13 +3,15 @@ module Admin
     before_action :authenticate_user!
 
     def index
-      scope = Job
+      scope = Job.all
       scope = scope.search_by_term(params[:q]) if params[:q].present?
         
       if params[:sort].present?
         column, direction = params[:sort].split(":")
         scope = scope.order(column => direction)
       end
+
+      total = scope.count
 
       unless params[:per_page].to_i == -1
         if params[:page].present?
@@ -23,7 +25,7 @@ module Admin
 
       render json: { 
         data: scope.as_json(methods: [:scheduled, :published]), 
-        total: scope.total_count 
+        total: total 
       }
     end
 
