@@ -73,3 +73,7 @@ services:
 
 volumes:
   data:
+
+networks:
+  default:
+    name: jobs
