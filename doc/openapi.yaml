@@ -59,6 +59,14 @@ paths:
           name: search
           schema:
             type: string
+        - in: query
+          name: employment_type
+          schema:
+            type: string
+        - in: query
+          name: location
+          schema:
+            type: string
       responses:
         '200':
           description: List of jobs
@@ -66,6 +74,15 @@ paths:
   /admin/jobs:
     get:
       summary: List all jobs (Admin)
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
       responses:
         '200':
           description: List of jobs
@@ -89,8 +106,9 @@ paths:
                       type: string
                     location:
                       type: string
-                    status:
+                    publish_at:
                       type: string
+                      format: date-time
       responses:
         '201':
           description: Job created
@@ -124,6 +142,18 @@ paths:
               properties:
                 job:
                   type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    employment_type:
+                      type: string
+                    location:
+                      type: string
+                    publish_at:
+                      type: string
+                      format: date-time
       responses:
         '200':
           description: Job updated

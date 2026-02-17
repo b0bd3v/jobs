@@ -29,7 +29,8 @@ Accept: application/json
 
 ### List Jobs
 # @name listJobs
-GET {{baseUrl}}/jobs
+GET {{baseUrl}}/jobs?search=developer
+
 
 
 ################################################################################
@@ -38,7 +39,7 @@ GET {{baseUrl}}/jobs
 
 ### List Jobs
 # @name listJobsAdmin
-GET {{baseUrl}}/admin/jobs
+GET {{baseUrl}}/admin/jobs?search=manager&page=1
 Authorization: {{authToken}}
 Accept: application/json
 
@@ -56,7 +57,7 @@ Content-Type: application/json
     "description": "Descrição do trabalho. Minimo de 30 caracteres.",
     "employment_type": "clt",
     "location": "Local do trabalho",
-    "status": "published"
+    "publish_at": "2024-01-01T12:00:00Z"
   }
 }
 
@@ -73,7 +74,7 @@ Content-Type: application/json
     "description": "Descrição do trabalho. Minimo de 30 caracteres.",
     "employment_type": "clt",
     "location": "Local do trabalho",
-    "status": "published"
+    "publish_at": "2024-01-01T12:00:00Z"
   }
 }
 
