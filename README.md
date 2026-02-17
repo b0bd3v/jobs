@@ -85,3 +85,10 @@ A documentação **não é gerada automaticamente**. Ela é definida manualmente
 - `doc/openapi.yaml`
 
 Para alterar ou adicionar novos endpoints, edite este arquivo e recarregue a página do Swagger UI.
+
+## O que gostaria de fazer e não deu tempo
+
+- Mais atenção para testes com Rspec
+- Refactoring de backend e frontend principalmente
+- Área de candidatos
+- Servidor MCP para prover dados de candidatos para ferramentas de IA
