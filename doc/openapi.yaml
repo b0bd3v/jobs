@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  description: API for managing job postings
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local Development Server
+
+paths:
+  /auth/login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+      responses:
+        '200':
+          description: Successful login
+          headers:
+            Authorization:
+              schema:
+                type: string
+  
+  /auth/logout:
+    delete:
+      summary: Logout user
+      responses:
+        '200':
+          description: Successful logout
+
+  /auth/me:
+    get:
+      summary: Get current user info
+      responses:
+        '200':
+          description: User info retrieved
+
+  /jobs:
+    get:
+      summary: List published jobs
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of jobs
+
+  /admin/jobs:
+    get:
+      summary: List all jobs (Admin)
+      responses:
+        '200':
+          description: List of jobs
+    post:
+      summary: Create a job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                job:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    employment_type:
+                      type: string
+                    location:
+                      type: string
+                    status:
+                      type: string
+      responses:
+        '201':
+          description: Job created
+
+  /admin/jobs/{id}:
+    get:
+      summary: Get a job
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Job details
+    put:
+      summary: Update a job
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                job:
+                  type: object
+      responses:
+        '200':
+          description: Job updated
+    delete:
+      summary: Delete a job
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Job deleted
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
