@@ -9,7 +9,7 @@
               label="Título da Vaga"
               variant="outlined"
               required
-              :rules="[(v) => !!v || 'Campo obrigatório']"
+              :rules="[(v) => !!v || 'Campo obrigatório', (v) => v.length >= 3 || 'Descrição deve ter no mínimo 3 caracteres']"
             ></v-text-field>
           </v-col>
 
@@ -19,7 +19,7 @@
               label="Localização"
               variant="outlined"
               required
-              :rules="[(v) => !!v || 'Campo obrigatório']"
+              :rules="[(v) => !!v || 'Campo obrigatório', (v) => v.length >= 3 || 'Descrição deve ter no mínimo 3 caracteres']"
             ></v-text-field>
           </v-col>
 
@@ -45,7 +45,7 @@
               variant="outlined"
               rows="10"
               required
-              :rules="[(v) => !!v || 'Campo obrigatório']"
+              :rules="[(v) => !!v || 'Campo obrigatório', (v) => v.length >= 30 || 'Descrição deve ter no mínimo 30 caracteres']"
             ></v-textarea>
           </v-col>
 
@@ -88,6 +88,7 @@
 
 <script setup lang="ts">
 import { reactive, watch } from "vue";
+import { v } from "vue-router/dist/router-CWoNjPRp.mjs";
 
 interface JobFormData {
   title: string;
