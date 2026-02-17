@@ -2,7 +2,7 @@ export const useAPI = () => {
   const config = useRuntimeConfig();
 
   const apiFetch = $fetch.create({
-    baseURL: config.public.apiBase as string,
+    baseURL: (import.meta.server ? config.apiSecret : config.public.apiBase) as string,
     onRequest({ options }) {
       const auth = useAuth();
       const token = auth.token.value;
