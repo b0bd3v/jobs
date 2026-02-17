@@ -88,7 +88,6 @@
 
 <script setup lang="ts">
 import { reactive, watch } from "vue";
-import { v } from "vue-router/dist/router-CWoNjPRp.mjs";
 
 interface JobFormData {
   title: string;

@@ -11,16 +11,21 @@ Aplicação de publicação de vagas de emprego.
 
 Aplicação dockerizada. Siga os passos abaixo:
 
-1. **Inicie os containers:**
+**Inicie os containers:**
 
-   ```bash
-   docker-compose up -d
-   ```
+```bash
+docker-compose --profile app up
+```
 
-2. **Verifique se os serviços estão rodando:**
-   ```bash
-   docker-compose ps
-   ```
+Isso irá subir os containers.
+
+**Inicie os containers com a documentação:**
+
+```bash
+docker-compose --profile app --profile docs up
+```
+
+Iniciando assim o banco já será instalado quando não tiver.
 
 ### Services
 
@@ -33,17 +38,40 @@ Deverá executar 4 containers:
 | **Swagger UI** | [http://localhost:8080](http://localhost:8080) | Documentação interativa da API |
 | **Database**   | [http://localhost:5432](http://localhost:5432) | Banco de dados PostgreSQL      |
 
-### Rodar Migrations (se necessário)
-
-Embora o container tente rodar automaticamente, você pode forçar a execução:
-
-```bash
-docker-compose exec api bin/rails db:migrate
-```
-
 ## Estrutura do Projeto
 
 - `api/`: Código fonte do Backend (Ruby on Rails).
 - `web/`: Código fonte do Frontend (Nuxt.js).
 - `doc/`: Documentação da API (OpenAPI/Swagger).
 - `docker-compose.yml`: Definição dos serviços e orquestração.
+
+## Acessando área de administração
+
+1. Fazer login na aplicação com cadastro feito pelo seed
+   - Email: admin@example.com.br
+   - Senha: `password`
+2. Se já não for redirecionado clique no botão `Admin`.
+
+## Swagger
+
+Para utilizar o Swagger neste projeto, siga os passos abaixo:
+
+1. **Inicie o container de documentação (junto com a aplicação):**
+
+   ```bash
+   docker-compose --profile docs up
+   ```
+
+   _(Ou `--profile app --profile docs` se quiser garantir que sobe tudo)_
+
+2. **Acesse no navegador:**
+
+   [http://localhost:8080](http://localhost:8080)
+
+### Manutenção da Documentação
+
+A documentação **não é gerada automaticamente**. Ela é definida manualmente no arquivo:
+
+- `doc/openapi.yaml`
+
+Para alterar ou adicionar novos endpoints, edite este arquivo e recarregue a página do Swagger UI.
