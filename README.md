@@ -11,6 +11,16 @@ Aplicação de publicação de vagas de emprego.
 
 Aplicação dockerizada. Siga os passos abaixo:
 
+**Configuração Inicial:**
+
+Antes de iniciar, você precisa configurar as variáveis de ambiente.
+
+```bash
+cp .env.example .env
+```
+
+Isso criará o arquivo `.env` na **raiz do repositório** com as configurações padrão. **Não é necessário alterar nada** para rodar localmente.
+
 **Inicie os containers:**
 
 ```bash
